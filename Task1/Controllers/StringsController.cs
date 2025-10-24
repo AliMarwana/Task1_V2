@@ -90,24 +90,28 @@ namespace Task1.Controllers
             }
         }
 
-        [HttpGet("is_palindrome={is_palindrome}&min_length={min_length}&max_length={max_length}&word_count={word_count}&contains_character={contains_character}")]
-        public async Task<IActionResult> GetAllStringsWithFiltering(bool is_palindrome, 
-            int min_length, int max_length, int word_count, string contains_character)
-        {
-            try
-            {
-                var stringDatas = await _stringRepository.GetStringsFiltered(is_palindrome, min_length, max_length, word_count, contains_character);
-                var filteredReturnStrings = _stringRepository.GetReturnStringsFiltered(stringDatas, is_palindrome, min_length,
-                    max_length, word_count, contains_character);
-                return Ok(filteredReturnStrings);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest("Invalid query parameter values or types");
-            }
+           [HttpGet]
+     public async Task<IActionResult> GetAllStringsWithFiltering([FromQuery] bool? is_palindrome = null,
+     [FromQuery] int? min_length = null,
+     [FromQuery] int? max_length = null,
+     [FromQuery] int? word_count = null,
+     [FromQuery] string contains_character = null)
+     {
+         try
+         {
+             var stringDatas = await _stringRepository.GetStringsFiltered((bool)(is_palindrome), (int)(min_length),
+                 (int)max_length, (int)word_count, contains_character);
+             var filteredReturnStrings = _stringRepository.GetReturnStringsFiltered(stringDatas, (bool)(is_palindrome),
+                 (int)min_length,
+                 (int)max_length, (int)word_count, contains_character);
+             return Ok(filteredReturnStrings);
+         }
+         catch (Exception ex)
+         {
+             return BadRequest("Invalid query parameter values or types");
+         }
 
-        }
-
+     }
         [HttpGet("filter-by-natural-language")]
         public async Task<IActionResult> GetStringsFromNaturalLanguage([FromQuery]string query)
         {
