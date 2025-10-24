@@ -32,7 +32,7 @@ namespace Task1.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateString(CreateStringDto stringDto)
+        public async Task<IActionResult> CreateString([FromBody]CreateStringDto stringDto)
         {
             try
             {
