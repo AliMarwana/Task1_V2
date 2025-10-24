@@ -90,7 +90,7 @@ namespace Task1.Controllers
             }
         }
 
-        [HttpGet("{is_palindrome}&{min_length}&{max_length}&{word_count}&{contains_character}")]
+        [HttpGet("is_palindrome={is_palindrome}&min_length={min_length}&max_length={max_length}&word_count={word_count}&contains_character={contains_character}")]
         public async Task<IActionResult> GetAllStringsWithFiltering(bool is_palindrome, 
             int min_length, int max_length, int word_count, string contains_character)
         {
