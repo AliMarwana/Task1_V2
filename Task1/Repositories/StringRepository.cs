@@ -42,7 +42,7 @@ namespace Task1.Repositories
       var condition = true;
       if (is_palindrome != null)
       {
-          condition = condition && (bool)is_palindrome;
+          condition = condition && IsPalindromeIgnoreCase(stringData.Value) && (bool)is_palindrome;
       }
       if(min_length != null)
       {
