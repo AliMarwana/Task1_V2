@@ -205,7 +205,7 @@ namespace Task1.Repositories
                 }
                 ,
                 //_mapper.Map<StringPropertyDto>(stringData.Properties),
-                CreatedAt = stringData.CreatedAt
+                Created_at = stringData.CreatedAt
             };
             return returnCreateStringDto;   
         }
