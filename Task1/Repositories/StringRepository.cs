@@ -135,32 +135,7 @@ namespace Task1.Repositories
             }
             return filters;
         }
-                public Dictionary<string, object> GetGlobalFilters(bool? is_palindrome = null, int? min_length = null,
-        int? max_length = null, int? word_count = null, string? contains_character = null)
-        {
-            Dictionary<string, object> filters = new Dictionary<string, object>();
-            if (is_palindrome != null)
-            {
-                filters.Add("is_palindrome", is_palindrome);
-            }
-            if (min_length != null)
-            {
-                filters.Add("min_length", min_length);
-            }
-            if(max_length != null)
-            {
-                filters.Add("max_length", max_length);
-            }
-            if(word_count != null)
-            {
-                filters.Add("word_count", word_count);
-            }
-            if(contains_character != null)
-            {
-                filters.Add("contains_character", contains_character);
-            }
-            return filters;
-        }
+     
            public FilteredStringsDto GetReturnStringsFiltered(List<StringData> stringDatas, Dictionary<string, object> filters)
        {
            var returnValues = stringDatas.Select(stringData =>
