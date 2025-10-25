@@ -109,29 +109,47 @@ namespace Task1.Repositories
             return allStringsFiltered;
 
         }
-        public FilteredStringsDto GetReturnStringsFiltered(List<StringData> stringDatas, bool is_palindrome, int min_length,
-        int max_length, int word_count, string contains_character)
+                public Dictionary<string, object> GetGlobalFilters(bool? is_palindrome = null, int? min_length = null,
+        int? max_length = null, int? word_count = null, string? contains_character = null)
         {
-            var returnValues = stringDatas.Select(stringData =>
+            Dictionary<string, object> filters = new Dictionary<string, object>();
+            if (is_palindrome != null)
             {
-                var returnValue = GetReturnCreateStringDto(stringData);
-                return returnValue;
-            }).ToList();
-            var filteredStringsDto = new FilteredStringsDto
+                filters.Add("is_palindrome", is_palindrome);
+            }
+            if (min_length != null)
             {
-                Data = returnValues,
-                Count = returnValues.Count(),
-                Filters_applied = new FiltersApplied
-                {
-                    Contains_character = contains_character,
-                    Is_palindrome = is_palindrome,
-                    Min_length = min_length,
-                    Max_length = max_length,
-                    Word_count = word_count,
-                }
-            };
-            return filteredStringsDto;
+                filters.Add("min_length", min_length);
+            }
+            if(max_length != null)
+            {
+                filters.Add("max_length", max_length);
+            }
+            if(word_count != null)
+            {
+                filters.Add("word_count", word_count);
+            }
+            if(contains_character != null)
+            {
+                filters.Add("contains_character", contains_character);
+            }
+            return filters;
         }
+           public FilteredStringsDto GetReturnStringsFiltered(List<StringData> stringDatas, Dictionary<string, object> filters)
+       {
+           var returnValues = stringDatas.Select(stringData =>
+           {
+               var returnValue = GetReturnCreateStringDto(stringData);
+               return returnValue;
+           }).ToList();
+           var filteredStringsDto = new FilteredStringsDto
+           {
+               Data = returnValues,
+               Count = returnValues.Count(),
+               Filters_applied = filters
+           };
+           return filteredStringsDto;
+       }
         public List<ReturnCreateStringDto> GetAllReturnValueDtos(List<StringData> stringDatas)
         {
             var returnValues = stringDatas.Select(stringData =>
