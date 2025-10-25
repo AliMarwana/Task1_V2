@@ -6,7 +6,7 @@ namespace Task1.DTOs
     {
         public string Id { get; set; }
         public string Value { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime Created_at { get; set; } = DateTime.Now;
         public StringPropertyDto? Properties { get; set; }
     }
 }
