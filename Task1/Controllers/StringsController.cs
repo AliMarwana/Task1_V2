@@ -99,11 +99,9 @@ namespace Task1.Controllers
      {
          try
          {
-             var stringDatas = await _stringRepository.GetStringsFiltered((bool)(is_palindrome), (int)(min_length),
-                 (int)max_length, (int)word_count, contains_character);
-             var filteredReturnStrings = _stringRepository.GetReturnStringsFiltered(stringDatas, (bool)(is_palindrome),
-                 (int)min_length,
-                 (int)max_length, (int)word_count, contains_character);
+              var filters = _stringRepository.GetGlobalFilters(is_palindrome, min_length, max_length, word_count, contains_character);
+ var stringDatas = await _stringRepository.GetStringsFiltered(is_palindrome, min_length, max_length, word_count, contains_character);
+ var filteredReturnStrings = _stringRepository.GetReturnStringsFiltered(stringDatas, filters);
              return Ok(filteredReturnStrings);
          }
          catch (Exception ex)
