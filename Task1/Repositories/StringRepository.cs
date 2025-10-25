@@ -99,8 +99,8 @@ namespace Task1.Repositories
             }
             return condition;
         }
-        public async Task<List<StringData>> GetStringsFiltered(bool is_palindrome, int min_length,
-            int max_length, int word_count, string contains_character)
+              public async Task<List<StringData>> GetStringsFiltered(bool? is_palindrome = null, int? min_length = null,
+            int? max_length = null, int? word_count = null, string? contains_character = null)
         {
 
             var allStringDatas = await _appDbContext.StringDatas.Include(p => p.Properties).ThenInclude(p => p.Character_frequency_map_object).ToListAsync();
@@ -108,6 +108,32 @@ namespace Task1.Repositories
                 max_length, word_count, contains_character)).ToList();
             return allStringsFiltered;
 
+        }
+                public Dictionary<string, object> GetGlobalFilters(bool? is_palindrome = null, int? min_length = null,
+        int? max_length = null, int? word_count = null, string? contains_character = null)
+        {
+            Dictionary<string, object> filters = new Dictionary<string, object>();
+            if (is_palindrome != null)
+            {
+                filters.Add("is_palindrome", is_palindrome);
+            }
+            if (min_length != null)
+            {
+                filters.Add("min_length", min_length);
+            }
+            if(max_length != null)
+            {
+                filters.Add("max_length", max_length);
+            }
+            if(word_count != null)
+            {
+                filters.Add("word_count", word_count);
+            }
+            if(contains_character != null)
+            {
+                filters.Add("contains_character", contains_character);
+            }
+            return filters;
         }
                 public Dictionary<string, object> GetGlobalFilters(bool? is_palindrome = null, int? min_length = null,
         int? max_length = null, int? word_count = null, string? contains_character = null)
